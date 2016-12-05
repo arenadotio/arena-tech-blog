@@ -1,0 +1,120 @@
+.. post:: Dec 04, 2016
+   :tags: OCaml
+   :author: Trevor Smith, Michelle Micallef
+
+Go risky on libraries, conservative on infrastructure
+==========================
+
+.. image:: _static/author_imgs/t-and-m.png
+   :align: right
+
+by Trevor Smith and Michelle Micallef
+*************************************
+
+Getting a company off the ground is an exercise in risk management. When
+I was hired to build out engineering here at Arena, I was tasked to form
+an engineering team and choose our founding technologies. These
+decisions had to be made to maximize stability, while allowing us to
+innovate quickly. An important choice was what language our engineers
+would use. There are many ways a software engineer’s day is impacted by
+the language [#]_. I approached these decisions with a risk management
+mindset. The idea is simple and commonplace: you weigh the risks of a
+choice compared with the gain to those involved. This pragmatic strategy
+was reinforced by a friend who advised me during this time to “go risky
+on libraries, conservative on infrastructure.” This is what we did.
+
+Most importantly, the language choice affects *how engineers
+conceptualize problems and their solutions*. The language frequently
+dictates how one represents data, changes to data across time and
+exceptional circumstances. Not only does the language choice have this
+philosophical import, there are also important day-to-day concerns about
+workable, efficient tooling, and quality library choices.
+
+I wanted our preferred language to be OCaml. OCaml gives engineers great
+paradigms to conceptualize problems and their solutions. The benefits of
+the language are `already
+<https://tech.esper.com/2014/07/15/why-we-use-ocaml/>`_  `well blogged
+<http://engineering.issuu.com/2015/09/17/ocaml-production.html>`_ and
+`spoken <https://blogs.janestreet.com/why-ocaml/>`_ about but in my
+opinion, the standout features include a simple way to represent data
+with first-class algebraic data types, a strong static type system that
+prevents a whole class of errors, and also a module system for
+abstraction and encapsulation. And so, I believed using OCaml would
+allow our engineering team to write reliable software fast. This
+decision was not without risks. The community of OCaml developers is
+very small compared with those of more popular languages such as Java or
+Python. With a smaller community comes less breadth of available
+libraries. With a smaller demographic of users to sway library writers,
+there is a high risk of incompatibility when a certain service doesn’t
+choose OCaml as one of their supported languages. However, I felt that
+these risks could all be addressed, and that the benefits that OCaml
+would bring would far outweigh the costs of addressing these risks.
+
+With libraries, the biggest risk I foresaw were gaps in
+functionality. There are mature libraries from prolific open source
+contributors as well as epic work done by industry titans and research
+universities. Nonetheless, from personal experience I knew of holes. For
+example, we needed to connect to a client MSSQL database but OCaml
+doesn’t have a library that can connect to MSSQL. While many in the open
+source community may not be concerned with connecting to a proprietary
+database, it became a real and pressing concern for our team when we
+needed to integrate. This is exactly the kind of issue that comes up in
+a company where a more mainstream language would have bindings, and we
+do not. However, there was an easy workaround: when necessary, use
+another language that does have that library. The risk here is creating
+a polyglot codebase. To combat that risk we are intentional about
+specifying a tight interface for the specific functionality that are we
+trying to leverage. For example, when we were writing some logic that
+would connect to a webservice, we discovered that there wasn’t an
+actively maintained SOAP client written in OCaml. Undeterred, we wrote a
+script in Python and used the `Zeep
+<http://docs.python-zeep.org/en/master/>`_ client. The majority of our
+business logic remained in OCaml until we shelled out to our Python
+script to communicate via SOAP, keeping the surface area of our borrowed
+language small. Unfortunately because of the smaller OCaml community we
+can’t write exclusively in OCaml but our workaround still allows us to
+use it most of the time and reap its benefits.
+
+The other risk was that the available libraries would not be as
+battle-tested as they might have been if OCaml was more widely used. In
+this case, the remedy is less clear. If the repo maintainer is
+responsive, we could report a bug and hope for a speedy repair. If our
+team is familiar enough with the library source code, we could
+contribute and push a fix ourselves. If neither of these are true, we
+could always fall back on another language that has an analogous
+library. The last option itself introduces risk because if the team has
+been using an OCaml library, it’s likely that other existing code uses
+this library. So far, when we have discovered bugs, they were either
+fixed promptly or we were able to engineer a workaround in our code.
+
+In a sense timing was everything. Other than having enough libraries,
+for a language to be a viable choice there has to be tooling for
+developers to feel comfortable while working with it. For a number of
+years, I had wanted to suggest using OCaml at places I worked. However,
+I couldn’t in good faith tell my superiors that using OCaml would
+increase productivity and then have the dev team lose modern IDE
+productivity gains and need to re-write package management for
+themselves. Then … BOOM! 2013 happened. `OPAM
+<https://opam.ocaml.org>`_, a package manager, and `Merlin
+<https://github.com/the-lambda-church/merlin>`_, a code editing tool
+that contains modern IDE features, were released. Merlin especially has
+been popular with our team. With these tools I felt reassured that my
+developers would be able to successfully use OCaml.
+
+Heeding my friend’s advice, when it came to infrastructure, AWS was the
+obvious choice. Released in 2006, AWS has been used by thousands of
+companies including Amazon itself which is the largest online
+retailer. Additionally, this choice made me more comfortable with my
+OCaml gamble. If using OCaml had proved to be unworkable, there would
+have been other mature ecosystems (e.g. Java or Python) that are
+compatible with AWS that we could switch to easily. Fortunately, we
+never had to take this exit ramp and are still happily programming in
+OCaml.
+
+Following my friend’s guidance has worked out for Arena and I would love
+to know how other growing companies have thought through these tradeoffs
+while innovating with less popular technologies. I want to express deep
+gratitude for all of the amazing work by the entire OCaml community. As
+we grow, we hope to give back what was so freely given.
+
+.. [#] https://en.wikipedia.org/wiki/Linguistic_relativity

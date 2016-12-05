@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Go risky on libraries, conservative on infrastructure &#8212; Arena Tech  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/tab_icon_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="top" title="Arena Tech  documentation" href="../" />
+  
+<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto+Mono:500|Roboto:500" rel="stylesheet">
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../blog/atom.xml" title="Arena Tech Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="go-risky-on-libraries-conservative-on-infrastructure">
+<h1>Go risky on libraries, conservative on infrastructure<a class="headerlink" href="#go-risky-on-libraries-conservative-on-infrastructure" title="Permalink to this headline">¶</a></h1>
+<img alt="../_images/t-and-m.png" class="align-right" src="../_images/t-and-m.png" />
+<div class="section" id="by-trevor-smith-and-michelle-micallef">
+<h2>by Trevor Smith and Michelle Micallef<a class="headerlink" href="#by-trevor-smith-and-michelle-micallef" title="Permalink to this headline">¶</a></h2>
+<p>Getting a company off the ground is an exercise in risk management. When
+I was hired to build out engineering here at Arena, I was tasked to form
+an engineering team and choose our founding technologies. These
+decisions had to be made to maximize stability, while allowing us to
+innovate quickly. An important choice was what language our engineers
+would use. There are many ways a software engineer’s day is impacted by
+the language <a class="footnote-reference" href="#id2" id="id1">[1]</a>. I approached these decisions with a risk management
+mindset. The idea is simple and commonplace: you weigh the risks of a
+choice compared with the gain to those involved. This pragmatic strategy
+was reinforced by a friend who advised me during this time to “go risky
+on libraries, conservative on infrastructure.” This is what we did.</p>
+<p>Most importantly, the language choice affects <em>how engineers
+conceptualize problems and their solutions</em>. The language frequently
+dictates how one represents data, changes to data across time and
+exceptional circumstances. Not only does the language choice have this
+philosophical import, there are also important day-to-day concerns about
+workable, efficient tooling, and quality library choices.</p>
+<p>I wanted our preferred language to be OCaml. OCaml gives engineers great
+paradigms to conceptualize problems and their solutions. The benefits of
+the language are <a class="reference external" href="https://tech.esper.com/2014/07/15/why-we-use-ocaml/">already</a>  <a class="reference external" href="http://engineering.issuu.com/2015/09/17/ocaml-production.html">well blogged</a> and
+<a class="reference external" href="https://blogs.janestreet.com/why-ocaml/">spoken</a> about but in my
+opinion, the standout features include a simple way to represent data
+with first-class algebraic data types, a strong static type system that
+prevents a whole class of errors, and also a module system for
+abstraction and encapsulation. And so, I believed using OCaml would
+allow our engineering team to write reliable software fast. This
+decision was not without risks. The community of OCaml developers is
+very small compared with those of more popular languages such as Java or
+Python. With a smaller community comes less breadth of available
+libraries. With a smaller demographic of users to sway library writers,
+there is a high risk of incompatibility when a certain service doesn’t
+choose OCaml as one of their supported languages. However, I felt that
+these risks could all be addressed, and that the benefits that OCaml
+would bring would far outweigh the costs of addressing these risks.</p>
+<p>With libraries, the biggest risk I foresaw were gaps in
+functionality. There are mature libraries from prolific open source
+contributors as well as epic work done by industry titans and research
+universities. Nonetheless, from personal experience I knew of holes. For
+example, we needed to connect to a client MSSQL database but OCaml
+doesn’t have a library that can connect to MSSQL. While many in the open
+source community may not be concerned with connecting to a proprietary
+database, it became a real and pressing concern for our team when we
+needed to integrate. This is exactly the kind of issue that comes up in
+a company where a more mainstream language would have bindings, and we
+do not. However, there was an easy workaround: when necessary, use
+another language that does have that library. The risk here is creating
+a polyglot codebase. To combat that risk we are intentional about
+specifying a tight interface for the specific functionality that are we
+trying to leverage. For example, when we were writing some logic that
+would connect to a webservice, we discovered that there wasn’t an
+actively maintained SOAP client written in OCaml. Undeterred, we wrote a
+script in Python and used the <a class="reference external" href="http://docs.python-zeep.org/en/master/">Zeep</a> client. The majority of our
+business logic remained in OCaml until we shelled out to our Python
+script to communicate via SOAP, keeping the surface area of our borrowed
+language small. Unfortunately because of the smaller OCaml community we
+can’t write exclusively in OCaml but our workaround still allows us to
+use it most of the time and reap its benefits.</p>
+<p>The other risk was that the available libraries would not be as
+battle-tested as they might have been if OCaml was more widely used. In
+this case, the remedy is less clear. If the repo maintainer is
+responsive, we could report a bug and hope for a speedy repair. If our
+team is familiar enough with the library source code, we could
+contribute and push a fix ourselves. If neither of these are true, we
+could always fall back on another language that has an analogous
+library. The last option itself introduces risk because if the team has
+been using an OCaml library, it’s likely that other existing code uses
+this library. So far, when we have discovered bugs, they were either
+fixed promptly or we were able to engineer a workaround in our code.</p>
+<p>In a sense timing was everything. Other than having enough libraries,
+for a language to be a viable choice there has to be tooling for
+developers to feel comfortable while working with it. For a number of
+years, I had wanted to suggest using OCaml at places I worked. However,
+I couldn’t in good faith tell my superiors that using OCaml would
+increase productivity and then have the dev team lose modern IDE
+productivity gains and need to re-write package management for
+themselves. Then … BOOM! 2013 happened. <a class="reference external" href="https://opam.ocaml.org">OPAM</a>, a package manager, and <a class="reference external" href="https://github.com/the-lambda-church/merlin">Merlin</a>, a code editing tool
+that contains modern IDE features, were released. Merlin especially has
+been popular with our team. With these tools I felt reassured that my
+developers would be able to successfully use OCaml.</p>
+<p>Heeding my friend’s advice, when it came to infrastructure, AWS was the
+obvious choice. Released in 2006, AWS has been used by thousands of
+companies including Amazon itself which is the largest online
+retailer. Additionally, this choice made me more comfortable with my
+OCaml gamble. If using OCaml had proved to be unworkable, there would
+have been other mature ecosystems (e.g. Java or Python) that are
+compatible with AWS that we could switch to easily. Fortunately, we
+never had to take this exit ramp and are still happily programming in
+OCaml.</p>
+<p>Following my friend’s guidance has worked out for Arena and I would love
+to know how other growing companies have thought through these tradeoffs
+while innovating with less popular technologies. I want to express deep
+gratitude for all of the amazing work by the entire OCaml community. As
+we grow, we hope to give back what was so freely given.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://en.wikipedia.org/wiki/Linguistic_relativity">https://en.wikipedia.org/wiki/Linguistic_relativity</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+</div>
+
+  
+  
+  </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../">
+    <img class="logo" src="../_static/arena_logo.jpg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+  
+  
+  <h2>
+  
+  <i class="fa fa-calendar"></i>
+    Dec 04, 2016
+  
+  </h2>
+
+  <ul>
+    
+
+  
+  <li><i class="fa-fw fa fa-user"></i>
+    
+      
+      <a href="../blog/author/trevor-smith/">Trevor Smith</a>,
+      
+    
+      
+      <a href="../blog/author/michelle-micallef/">Michelle Micallef</a>
+      
+    </li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-tag"></i>
+    
+      
+      <a href="../blog/tag/ocaml/">OCaml</a>
+      
+    </li>
+  
+  
+  </ul>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://arena.io/">http://arena.io/</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/arenadotio">https://github.com/arenadotio</a></li>
+</ul>
+
+
+  <h3><a href="../blog/">Recent Posts</a></h3>
+  <ul>
+    
+    
+  </ul>
+
+  <h3><a href="../blog/tag/">Tags</a></h3>
+  <style type="text/css">
+    ul.ablog-cloud {list-style: none; overflow: auto;}
+    ul.ablog-cloud li {float: left; height: 20pt; line-height: 18pt; margin-right: 5px;}
+    ul.ablog-cloud a {text-decoration: none; vertical-align: middle;}
+    li.ablog-cloud-1{font-size: 80%;}
+    li.ablog-cloud-2{font-size: 95%;}
+    li.ablog-cloud-3{font-size: 110%;}
+    li.ablog-cloud-4{font-size: 125%;}
+    li.ablog-cloud-5{font-size: 140%;}
+  </style>
+  <ul class="ablog-cloud">
+    
+      
+      <li class="ablog-cloud ablog-cloud-3">
+        <a href="../blog/tag/ocaml/">OCaml</a></li>
+      
+    
+  </ul>
+
+  <h3><a href="../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../blog/2016/">2016 (1)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer" role="contentinfo">
+  &copy;2016. All rights reserved. | <a href="http://arena.io/"> Arena </a>
+</div>
+
+  </body>
+</html>
