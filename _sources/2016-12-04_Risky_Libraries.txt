@@ -1,6 +1,7 @@
 .. post:: Dec 04, 2016
    :tags: OCaml
    :author: Trevor Smith, Michelle Micallef
+   :excerpt: 2
 
 Go risky on libraries, conservative on infrastructure
 ==========================
@@ -10,6 +11,12 @@ Go risky on libraries, conservative on infrastructure
 
 by Trevor Smith and Michelle Micallef
 *************************************
+
+
+
+ *This post was a collaboration between Michelle Micallef and Trevor
+ Smith. Trevor is the VP of engineering at Arena. Michelle is an
+ engineer at Arena*
 
 Getting a company off the ground is an exercise in risk management. When
 I was hired to build out engineering here at Arena, I was tasked to form

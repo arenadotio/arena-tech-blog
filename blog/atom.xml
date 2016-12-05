@@ -15,7 +15,10 @@
     <author>
       <name>Trevor Smith, Michelle Micallef</name>
     </author>
-    <content type="html">&lt;p&gt;Getting a company off the ground is an exercise in risk management. When
+    <content type="html">&lt;p&gt;&lt;em&gt;This post was a collaboration between Michelle Micallef and Trevor
+Smith. Trevor is the VP of engineering at Arena. Michelle is an
+engineer at Arena&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Getting a company off the ground is an exercise in risk management. When
 I was hired to build out engineering here at Arena, I was tasked to form
 an engineering team and choose our founding technologies. These
 decisions had to be made to maximize stability, while allowing us to
