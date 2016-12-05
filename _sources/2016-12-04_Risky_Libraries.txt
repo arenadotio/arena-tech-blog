@@ -45,7 +45,7 @@ the language are `already
 `spoken <https://blogs.janestreet.com/why-ocaml/>`_ about but in my
 opinion, the standout features include a simple way to represent data
 with first-class algebraic data types, a strong static type system that
-prevents a whole class of errors, and also a module system for
+prevents a whole class of errors, and a module system for
 abstraction and encapsulation. And so, I believed using OCaml would
 allow our engineering team to write reliable software fast. This
 decision was not without risks. The community of OCaml developers is
@@ -70,7 +70,7 @@ a company where a more mainstream language would have bindings, and we
 do not. However, there was an easy workaround: when necessary, use
 another language that does have that library. The risk here is creating
 a polyglot codebase. To combat that risk we are intentional about
-specifying a tight interface for the specific functionality that are we
+specifying a tight interface for the specific functionality that we are
 trying to leverage. For example, when we were writing some logic that
 would connect to a webservice, we discovered that there wasn’t an
 actively maintained SOAP client written in OCaml. Undeterred, we wrote a
