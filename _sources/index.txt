@@ -9,7 +9,7 @@ Arena Tech Blog
 Welcome to the Arena tech blog where our team of data scientists and
 software engineers post about our technical work and day to day
 life. If you find any of this interesting, please reach out -- we're
-hiring! You can see out open job positions `here
+hiring! You can see our open job positions `here
 <http://arena.io/about/careers.html>`_.
 
 Here is a list of most recent posts:
