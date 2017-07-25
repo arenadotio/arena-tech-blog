@@ -1,0 +1,241 @@
+.. post:: Jul 24, 2017
+   :tags: arena, values
+   :author: Vinicius Gravina da Rocha
+###############################
+Arena's Cultural Values at Work
+###############################
+
+.. image:: _static/author_imgs/vinicius.png
+   :align: right
+   :target: https://www.linkedin.com/in/vgrocha/
+
+By Vinicius Gravina da Rocha
+============================
+
+At Arena, defining our culture is as important as the quality of the software we
+deliver. One emanates from the other. In this blog post I share some of our
+cultural values, using stories of real-life situations to illustrate how we
+interact with each other on a daily basis: how we go about decision-making, how
+we prioritize our work, and what we do when things slip through the cracks.
+
+Development driven by client value and suffering
+================================================
+
+There’s an infinite amount of possible work we could do. We don't have the
+luxury of spending time on anything but projects that will make us move forward
+as a company. Deciding what to do tends to be driven by client value and `by
+suffering <http://nathanmarz.com/blog/suffering-oriented-programming.html>`_.
+
+I believe the reader is familiar with the term "client value", since it's jargon
+in our industry, but "suffering" is an interesting one. By working on things
+that make us suffer, we are able to free up resources - time, cognition, money,
+etc. - to focus on things that will bring value to our clients. In a certain
+sense, "suffering" is a metric that indirectly leads us to value.
+
+In order to define our priorities, all the work that needs to be done is
+analyzed and weighted against its value. It might seem like a lot of effort and
+a huge overhead, but it allows us to be confident that we're building the right
+things.
+
+Client Value
+************
+
+When thinking about value, we try to gauge whether a new feature or product will
+add value to our clients. Will it help our clients to be more successful at
+their jobs? Are their lives going to be easier or simpler?
+
+One feature we designed recently catalyzed the interaction between a large
+subset of our users and our product. We went onsite to hear from our users to
+understand how their daily routine was and how they were engaging with our
+product.
+
+In those interviews, we realized that recruiting was just one of their many
+responsibilities and that just a fraction of their time was spent in such
+activity. This meant that learning how to interact with our product - and even
+their own recruiting systems - was a cost few were willing to pay.
+
+Considering our users' busy schedule, and their daily use of e-mail, we designed
+a e-mail report that summarizes our hire recommendations and predictions. The
+applicants are linked to their profile in the recruitment platform, allowing our
+users to quickly move forward with a recommended application. After the beta
+period and success at one client, we then began rolling this feature out to more
+clients.
+
+Our feature bridged the gap between the users, their recruiting systems and our
+product. Needless to say, this feature proved to be a great success.
+
+Suffering
+*********
+
+When looking at our processes and tools, we evaluate how "painful" they are, how
+long they take and how frequently they are used.
+
+.. figure:: _static/arenas_cultural_values/is_it_worth_the_time.png
+   :align: center
+
+   Is it worth the time? Source: https://xkcd.com/1205/
+
+
+If our processes or tools are slowing us down, it might be time to revamp
+them. If it’s a one-time thing, it might not be worth spending hours automating
+it.
+
+An example from one of our processes: data from different sources is ingested,
+cleaned and matched. This involves several mapping files that describe how the
+data is transformed and how the different operations are executed. For
+historical reasons, those mappings were described in the Comma Separated Value
+(CSV) format, similar to a truth table in which all combinations of input had to
+be explicitly listed. To make things worse, these files were manually updated.
+
+As you can imagine, there were several pain points: describing all inputs was
+tedious, error prone and hard to review. Also, across files there was duplicated
+information that had to be kept in sync manually.
+
+To reduce the entropy in this process, we re-designed our approach.
+
+We designed a Doman Specific Language (DSL) capable of expressing such mappings
+in a succinct way, drastically reducing the complexity of the files. Moreover,
+we defined a set of files to be the single source of truth from which old
+format mappings are generated.
+
+Some of the old mapping formats were kept, because changing them would break a
+lot of the existing code, entailing a lot of refactoring. Since those interfaces
+weren’t part of the problem, we focused on precisely what was causing us pain.
+
+Mistakes happen. Blame the process, not the people
+==================================================
+
+It's part of human nature to make mistakes. Acknowledging this allows us to
+focus on tools and processes that will keep us on the right track, preventing
+accidental errors or mistakes.
+
+Whenever something goes wrong, we blame the process, not the people, and then we
+try to improve the process. We have two distinct opportunities to improve
+ourselves and our processes that help us to become a better team and a better
+company: the weekly retrospective and the post mortem.
+
+Weekly retrospective
+********************
+
+Every Monday, we meet to talk over the previous week, how we could have done
+things better, how we can improve. The idea is to build processes that don’t
+allow us to break things, so the process is running us, not vice versa. At the
+same time, we want to design a process that is transparent and doesn’t stand in
+our way. (See `Suffering`_ above for how we dealt with a process that became too
+cumbersome.)
+
+Post mortem
+***********
+
+When something fails drastically in our production department, we fix it at the
+time, however we can. Later, when things are calmer, we pause and evaluate the
+root cause of the problem. We use a process called the `“Five Why’s”
+<https://en.wikipedia.org/wiki/5_Whys>`_ in a way that invites people to
+participate, not to blame or find a guilty person. And then we work to improve
+the process.
+
+In one of those incidents, we had an artifact that was accidentally deployed to
+the wrong machine in production. This reverted software to an older version,
+with unfixed bugs. This happened because the deploy was manual and whoever was
+running it, ended up choosing the wrong build plan.
+
+After resolving the issue, the team got together to investigate the root causes
+and evaluate how the process could be revamped to prevent such issues from
+happening in the future. The result was a design we called "Deploy by code", in
+which we leverage our code review system to track, review and notify people of
+deploys.
+
+Promote individual ownership
+============================
+
+Software development is a complex feat. There are so many different flows of
+information and constraints: different requirements and use cases, technical
+debt, new technologies and libraries. We trust our people to work directly with
+clients and we value their ideas internally.
+
+Direct client contact
+*********************
+
+As much as possible we promote the flow of information directly between the
+interested parties, with as little noise as possible. This empowers us to bring
+our own perspectives on how to solve problems, when to pivot and improve upon
+our iterations.
+
+We trust our people to have conversations with clients, we expect them to ask
+the questions they need to ask, and we give them the agency and freedom to have
+those conversations. We want the person with the best information to implement
+the solution. And we want the person doing the implementing to have the best
+information.
+
+As an example, when integrating our product with our clients' platform, often
+times the engineering team needs to interact with the client, their technical
+staff and other software vendors. In these situations, we encourage our
+engineers to reach to the different parties when necessary.
+
+Still, we want to be mindful of people's time and not have every engineer
+sending emails with similar or related questions. We ended up with a bottom up
+approach, in which whoever wanted to send an email to a third party would reach
+out to the team to gather additional questions or thoughts to be included.
+
+Owners of our own time
+**********************
+
+Our tech people know that if they want to make an improvement and have an idea,
+the field is theirs. If someone wants to take leadership on something, they can
+even have fun doing it.
+
+One example is in front of your very eyes. This tech blog originated in
+conversations among the engineers. We chatted about this and as a company we
+agreed it would be a valuable platform to express ourselves, give back to the
+tech community and share a bit of Arena's backstage with future coworkers - by
+the way, `we are hiring <https://www.arena.io/about/careers.html>`_! =)
+
+The engineers that felt strongly about it took action and are the current
+maintainers and editors of this blog.
+
+Continuous adaptation
+=====================
+
+We are continually introspective and self-aware. We always ask, is our approach
+working or do we need to change it? We want people we can trust, who will be
+accountable and responsible, so they don’t blindly follow a process and end up
+in the wrong place.
+
+Designing good process is not trivial. An ideal one is invisible and
+effective. It doesn't get in one's way and at the same time ensures a successful
+outcome.
+
+This ideal might not be attainable, but we strive for it. It's why we promote
+continuous adaptation. At Arena, everything is up for questioning and to be
+re-assessed: team structure, meetings, tools, process, etc. All are maleable,
+with the potential to be improved to help us achieve success.
+
+Take meetings as an example - a word dreaded by a lot of engineers. We try to be
+very mindful about them, since there's a lot of friction to get everyone
+together at the same time. Also, it simply takes people's time.
+
+Depending on the phase of a project, it might be valuable to get together more
+often, tightening the loop of updates and information. But, as soon as the context
+changes, those are re-evaluated and usually cancelled.
+
+With respect to the meetings, if they start losing focus, it's the participants'
+responsibility and duty to put a meeting back on its tracks. If it has no clear
+agenda, people are encouraged to bring that up. In those rare cases, meetings
+are cancelled on the spot and rescheduled when a clearer objective is provided.
+
+We are humans
+=============
+
+At Arena, we're not just cogs in a machine, churning code, but whole humans. We
+take into account our feelings, limitations, ambitions and fears. Not as
+inconveniences, but as valuable aspects of who we are.
+
+We ask, “How are you feeling?” Questions like this create space to open up about
+how you are feeling, to talk about how to move away from a feeling of anxiety
+and concern into being energized and excited.
+
+Personally, I have learned that being aware of my emotional state and addressing
+any needs that come out of it enhances both my creativity and my productivity.
+
+The bottom line is that we want people to `be happy, empowered and fulfilled in
+their work <https://www.arena.io/about/careers.html>`_.
