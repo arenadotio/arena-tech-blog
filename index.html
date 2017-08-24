@@ -41,15 +41,18 @@
 </script>
 
   
+  <link rel="alternate" type="application/atom+xml"  href="blog/atom.xml" title="Arena Tech Blog">
   
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  
+  <link href="True" rel="stylesheet">
   
   <style type="text/css">
     ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
     ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
-    ul.post-list-style-disc {list-style-type: disc;}
-    ul.post-list-style-none {list-style-type: none;}
-    ul.post-list-style-circle {list-style-type: circle;}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
   </style>
 
   </head>
@@ -68,16 +71,31 @@ software engineers post about our technical work and day to day
 life. If you find any of this interesting, please reach out &#8211; we&#8217;re
 hiring! You can see our open job positions <a class="reference external" href="http://arena.io/about/careers.html">here</a>.</p>
 <p>Here is a list of most recent posts:</p>
-<ul class="post-list-style-none">
-<li><p class="first">Jul 24 - <a class="reference internal" href="2017-07-14_Arenas_Cultural_Values/"><em>Arena&#8217;s Cultural Values at Work</em></a></p>
+<ul class="postlist-style-none postlist">
+<li><p class="first">Aug 24 - <a class="reference internal" href="Painless_PFA/">Painless Model Deployment Using PFA</a></p>
+<p>Like most companies in predictive analytics, Arena has two groups of experts
+with differing desires and skill sets: our data scientists constantly design,
+test, and refine our algorithms that <a class="reference external" href="https://www.arena.io/solution.html">make predictions to improve health care
+operations</a> our engineers build efficient,
+scalable infrastructure to productionalize these algorithms, allowing us to
+score new input data in real-time. Because of these different goals, there is
+often a disconnect between model training and scoring. In the past, when it came
+time to move a new algorithm to production, engineers had to manually
+reimplement it in another system. Reimplementing anything in software is painful
+&#8211; it comes with more bugs, more iteration, new library requirements, and
+(because multiple teams are involved) more communication. Any tweaks from the
+data science team would require additional work by engineering. This situation
+was becoming a hindrance to our productivity, and we knew there had to be a
+better way.</p>
+</li>
+<li><p class="first">Jul 24 - <a class="reference internal" href="Arenas_Cultural_Values/">Arena&#8217;s Cultural Values at Work</a></p>
 <p>At Arena, defining our culture is as important as the quality of the software we
 deliver. One emanates from the other. In this blog post I share some of our
 cultural values, using stories of real-life situations to illustrate how we
 interact with each other on a daily basis: how we go about decision-making, how
 we prioritize our work, and what we do when things slip through the cracks.</p>
-<div class="line"><br /></div>
 </li>
-<li><p class="first">Dec 12 - <a class="reference internal" href="2016-12-12_Cuban_Conference_Crisis/"><em>Cuban Conference Crisis</em></a></p>
+<li><p class="first">Dec 12 - <a class="reference internal" href="Cuban_Conference_Crisis/">Cuban Conference Crisis</a></p>
 <p>A year ago I could never have imagined my last night in Havana. I found
 myself at the hip Fábrica de Arte Cubano, sitting with a glass of Ron
 Santiago on the rocks, listening to <a class="reference external" href="https://bartoszmilewski.com/">Bartosz Milewski</a> explain how to achieve determinism in a
@@ -91,9 +109,8 @@ concepts and the local FP community here in New York City. When my
 co-worker, <a class="reference external" href="http://rgrinberg.com/">Rudi</a>, discovered that there would
 be an FP conference, Monad Libre, in Cuba, a country still off limits to
 American tourists, I knew I had to go.</p>
-<div class="line"><br /></div>
 </li>
-<li><p class="first">Dec 04 - <a class="reference internal" href="2016-12-04_Risky_Libraries/"><em>Go risky on libraries, conservative on infrastructure</em></a></p>
+<li><p class="first">Dec 04 - <a class="reference internal" href="Risky_Libraries/">Go risky on libraries, conservative on infrastructure</a></p>
 <p><em>This post was a collaboration between Michelle Micallef and Trevor
 Smith. Trevor is the VP of engineering at Arena. Michelle is an
 engineer at Arena</em></p>
@@ -108,7 +125,6 @@ mindset. The idea is simple and commonplace: you weigh the risks of a
 choice compared with the gain to those involved. This pragmatic strategy
 was reinforced by a friend who advised me during this time to “go risky
 on libraries, conservative on infrastructure.” This is what we did.</p>
-<div class="line"><br /></div>
 </li>
 </ul>
 <div class="toctree-wrapper compound">
@@ -152,11 +168,13 @@ on libraries, conservative on infrastructure.” This is what we did.</p>
   <ul>
     
     
-      <li><a href="2017-07-14_Arenas_Cultural_Values/">Jul 24 - Arena's Cultural Values at Work</a></li>
+      <li><a href="Painless_PFA/">Aug 24 - Painless Model Deployment Using PFA</a></li>
     
-      <li><a href="2016-12-12_Cuban_Conference_Crisis/">Dec 12 - Cuban Conference Crisis</a></li>
+      <li><a href="Arenas_Cultural_Values/">Jul 24 - Arena's Cultural Values at Work</a></li>
     
-      <li><a href="2016-12-04_Risky_Libraries/">Dec 04 - Go risky on libraries, conservative on infrastructure</a></li>
+      <li><a href="Cuban_Conference_Crisis/">Dec 12 - Cuban Conference Crisis</a></li>
+    
+      <li><a href="Risky_Libraries/">Dec 04 - Go risky on libraries, conservative on infrastructure</a></li>
     
   </ul>
 
@@ -190,7 +208,17 @@ on libraries, conservative on infrastructure.” This is what we did.</p>
     
       
       <li class="ablog-cloud ablog-cloud-3">
+        <a href="blog/tag/data-science/">data science</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-3">
         <a href="blog/tag/functional-programming/">functional programming</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-3">
+        <a href="blog/tag/pfa/">pfa</a></li>
       
     
       
@@ -204,7 +232,7 @@ on libraries, conservative on infrastructure.” This is what we did.</p>
   <ul>
   
     
-    <li><a href="blog/2017/">2017 (1)</a></li>
+    <li><a href="blog/2017/">2017 (2)</a></li>
     
   
     

@@ -2,16 +2,41 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">Arena Tech Blog</title>
   <id>http://techblog.arena.io/blog/atom.xml</id>
-  <updated>2017-07-24T00:00:00Z</updated>
+  <updated>2017-08-24T00:00:00Z</updated>
   <link href="http://techblog.arena.io/" />
   <link href="http://techblog.arena.io/blog/atom.xml" rel="self" />
-  <generator uri="http://ablog.readthedocs.org" version="0.7.10">ABlog</generator>
+  <generator uri="http://ablog.readthedocs.org" version="0.8.3">ABlog</generator>
+  <entry xml:base="http://techblog.arena.io/blog/atom.xml">
+    <title type="text">Painless Model Deployment Using PFA</title>
+    <id>http://techblog.arena.io/Painless_PFA/</id>
+    <updated>2017-08-24T00:00:00Z</updated>
+    <published>2017-08-24T00:00:00Z</published>
+    <link href="http://techblog.arena.io/Painless_PFA/" />
+    <author>
+      <name>Brandon Williams</name>
+    </author>
+    <content type="html">&lt;p&gt;Like most companies in predictive analytics, Arena has two groups of experts
+with differing desires and skill sets: our data scientists constantly design,
+test, and refine our algorithms that &lt;a class=&quot;reference external&quot; href=&quot;https://www.arena.io/solution.html&quot;&gt;make predictions to improve health care
+operations&lt;/a&gt; our engineers build efficient,
+scalable infrastructure to productionalize these algorithms, allowing us to
+score new input data in real-time. Because of these different goals, there is
+often a disconnect between model training and scoring. In the past, when it came
+time to move a new algorithm to production, engineers had to manually
+reimplement it in another system. Reimplementing anything in software is painful
+&amp;#8211; it comes with more bugs, more iteration, new library requirements, and
+(because multiple teams are involved) more communication. Any tweaks from the
+data science team would require additional work by engineering. This situation
+was becoming a hindrance to our productivity, and we knew there had to be a
+better way.&lt;/p&gt;
+</content>
+  </entry>
   <entry xml:base="http://techblog.arena.io/blog/atom.xml">
     <title type="text">Arena's Cultural Values at Work</title>
-    <id>http://techblog.arena.io/2017-07-14_Arenas_Cultural_Values/</id>
+    <id>http://techblog.arena.io/Arenas_Cultural_Values/</id>
     <updated>2017-07-24T00:00:00Z</updated>
     <published>2017-07-24T00:00:00Z</published>
-    <link href="http://techblog.arena.io/2017-07-14_Arenas_Cultural_Values/" />
+    <link href="http://techblog.arena.io/Arenas_Cultural_Values/" />
     <author>
       <name>Vinicius Gravina da Rocha</name>
     </author>
@@ -24,10 +49,10 @@ we prioritize our work, and what we do when things slip through the cracks.&lt;/
   </entry>
   <entry xml:base="http://techblog.arena.io/blog/atom.xml">
     <title type="text">Cuban Conference Crisis</title>
-    <id>http://techblog.arena.io/2016-12-12_Cuban_Conference_Crisis/</id>
+    <id>http://techblog.arena.io/Cuban_Conference_Crisis/</id>
     <updated>2016-12-12T00:00:00Z</updated>
     <published>2016-12-12T00:00:00Z</published>
-    <link href="http://techblog.arena.io/2016-12-12_Cuban_Conference_Crisis/" />
+    <link href="http://techblog.arena.io/Cuban_Conference_Crisis/" />
     <author>
       <name>Michelle Micallef</name>
     </author>
@@ -48,10 +73,10 @@ American tourists, I knew I had to go.&lt;/p&gt;
   </entry>
   <entry xml:base="http://techblog.arena.io/blog/atom.xml">
     <title type="text">Go risky on libraries, conservative on infrastructure</title>
-    <id>http://techblog.arena.io/2016-12-04_Risky_Libraries/</id>
+    <id>http://techblog.arena.io/Risky_Libraries/</id>
     <updated>2016-12-04T00:00:00Z</updated>
     <published>2016-12-04T00:00:00Z</published>
-    <link href="http://techblog.arena.io/2016-12-04_Risky_Libraries/" />
+    <link href="http://techblog.arena.io/Risky_Libraries/" />
     <author>
       <name>Trevor Smith, Michelle Micallef</name>
     </author>

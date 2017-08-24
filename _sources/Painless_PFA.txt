@@ -1,0 +1,173 @@
+.. post:: Aug 24, 2017
+   :tags: data science, pfa
+   :author: Brandon Williams
+
+###################################
+Painless Model Deployment Using PFA
+###################################
+
+.. image:: _static/author_imgs/brandon.png
+   :align: right
+   :target: https://www.linkedin.com/in/brandonwilliams9/
+
+By Brandon Williams
+===================
+
+Like most companies in predictive analytics, Arena has two groups of experts
+with differing desires and skill sets: our data scientists constantly design,
+test, and refine our algorithms that `make predictions to improve health care
+operations <https://www.arena.io/solution.html>`_ our engineers build efficient,
+scalable infrastructure to productionalize these algorithms, allowing us to
+score new input data in real-time. Because of these different goals, there is
+often a disconnect between model training and scoring. In the past, when it came
+time to move a new algorithm to production, engineers had to manually
+reimplement it in another system. Reimplementing anything in software is painful
+-- it comes with more bugs, more iteration, new library requirements, and
+(because multiple teams are involved) more communication. Any tweaks from the
+data science team would require additional work by engineering. This situation
+was becoming a hindrance to our productivity, and we knew there had to be a
+better way.
+
+The solution we found was the `Portable Format for Analytics
+(PFA) <http://dmg.org/pfa/>`_. Arena has been using PFA as the interface between
+model training and scoring in our products. One can think of it as a
+language-independent data format to define modeling workflows, or, JSON for
+models. The technology is new enough that we couldn’t find others writing about
+the implementation process or their day-to-day experience working with it. As
+such, I thought it would be useful to share our experience adopting and working
+with PFA. So far, it has solved all of our use cases, and we have been happy
+working with it.
+
+PFA is an easier-to-use, customizable evolution of PMML
+=======================================================
+
+The data scientists primarily write algorithms in Python or R. Until last year,
+if we wanted the resulting models to be used for scoring, they would have to be
+reimplemented by engineering in the language of our scoring system. Whenever we
+wanted to tweak the model, the code would have to be modified in two different
+places. This process was laborious and open to human error, subtle bugs, and
+implementation differences.
+
+We made it a priority to find a better solution that would
+
+* allow data scientists to investigate, train, test, and deploy different types
+  of models,
+
+* have the ability to run different models for different subsets of users,
+
+* remove the need for engineers having to manually implement models,
+
+* allow data scientists to view all properties of historically deployed models,
+  and
+
+* have easy "roll back" functionality.
+
+Early on, we considered letting data scientists deploy arbitrary Python or R
+code. However, managing Python/R library dependencies in multiple environments
+and embedding Python/R models into production applications is painful. (In fact,
+there are `many <https://www.yhat.com/products/scienceops>`_
+`services <https://www.dominodatalab.com/>`_ that offer to do this for you.)
+
+The Predictive Model Markup Language (PMML) seemed like a promising tool for
+exchanging model descriptions between different environments, but it did not
+meet all our needs since customizing and extending models with it is a
+`slow <http://openscoring.io/blog/2015/05/15/jpmml_model_api_vendor_extensions/>`_,
+`arduous <https://kdd13pmml.files.wordpress.com/2013/07/guazzelli_et_al.pdf>`_
+process.
+
+When we came across PFA, we were excited by the potential of the solution. In
+many ways, PFA is a nice evolution of PMML: it is easier to use, it supports
+custom modeling logic, it’s composable, and the user doesn’t have to write JSON.
+
+Implementation
+==============
+
+The team for this project consisted of me (a data scientist) and two engineers.
+
+First, we did a proof of concept to demonstrate that PFA would meet our
+requirements. We took one of our existing production models and reimplemented it
+in PFA, feeding the same inputs to both versions of the model. The resulting
+scores were identical, and the process took less than two days.
+
+Next, we built a new scoring system -- we implemented all of our models in PFA
+and wrote the necessary infrastructure in OCaml. Tools like `PrettyPFA
+<https://github.com/opendatagroup/hadrian/wiki/PrettyPFA-Reference>`_ made
+writing PFA simple.
+
+We shadow deployed this system alongside our existing scoring engine and
+monitored the scores returned by each. After a few months of matching scores, we
+flipped the switch to start using the new scoring system in production.
+
+Concerns
+========
+
+We knew that PFA was not going to be an off-the-shelf solution. PFA provides a
+standard format and a way to evaluate algorithms defined in that format, but we
+had to build the infrastructure for managing the deployment of models and
+scoring new data in production. Although the implementation was generally
+smooth, we ran into a few problems while building this system.
+
+Bugs
+----
+
+Because PFA is a relatively new technology, it still has a few bugs. One of the
+main benefits of PFA is that it is supposed to produce the same result from the
+same input and model definition, even when they are evaluated in different
+languages. But in one of our models, because of a slight difference between
+PFA’s static typing for the Python (`Titus
+<http://opendatagroup.github.io/hadrian/titus-0.8.3/titus.genpy.PFAEngine>`_)
+and JVM (`Hadrian
+<http://opendatagroup.github.io/hadrian/hadrian-0.8.3/index.html#com.opendatagroup.hadrian.jvmcompiler.PFAEngine>`_)
+implementations, Titus was returning a float while Hadrian was returning an
+integer. For this bug, we submitted an issue on Github and one of the senior
+maintainers promptly fixed it. Since then, we have run into two additional bugs
+and have started maintaining our `own fork
+<https://github.com/arenadotio/hadrian/tree/daily>`_ of Hadrian while we wait
+for our upstream pull requests to be accepted. These types of bugs are expected
+when using any new software; overall, the experience was better than we had
+hoped, with quick turnarounds on diagnosing and fixing issues when they arose.
+
+Benefits
+========
+
+Simpler, faster, and more effective workflow from experimentation to production
+-------------------------------------------------------------------------------
+
+Prior to implementing PFA, we struggled to keep up with the innovations of our
+data science team in production. In large part, this was due to the clunkiness
+of our old scoring system. Since implementing PFA, we have been able to design a
+few new algorithms and easily deploy them to production. This allows the data
+science team to have confidence that any experiments we run will not go to waste
+-- if a new model shows good results, we implement it in PFA. The benefits of
+this new workflow cannot be overstated.
+
+Furthermore, we are currently developing new products to predict additional
+client-specific outcomes. Our use of PFA has halved the time that this project
+has taken. This means that not only are these products easier for our technical
+teams to implement, but also that our clients save money.
+
+Close cross-team collaboration and personal development
+-------------------------------------------------------
+
+A great side effect of this project is that now both the engineering and data
+science teams are intimately familiar with our scoring engine. Previously, we
+each had limited and siloed understandings of the system; now, data scientists
+have the agency to tweak our production models and deploy new ones without
+engineering support. Additionally, this project was a good excuse for me to
+learn OCaml, which has made me a better engineer. Finding opportunities for data
+scientists and engineers to develop overlapping skills is always worthwhile and
+facilitates better communication and better products.
+
+.. raw:: html
+
+  <embed>
+
+  <em> Thinking of implementing PFA at your company? Interested in working at
+  Arena? Leave a comment or reach me on the <a
+  href="http://dmg-slack.herokuapp.com"> PFA Slack channel</a>, <a
+  href="https://github.com/bmwilly">Github</a>, or <a
+  href="https://twitter.com/bmwilly">Twitter</a> at @bmwilly.
+  </em>
+
+ </embed>
+|
