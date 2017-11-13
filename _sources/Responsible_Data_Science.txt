@@ -21,12 +21,14 @@ As someone who came into the tech industry from the
 I feel like I naturally seek purpose and social impact in my work. What
 does this mean to me as a data scientist? It means that I want to apply
 machine learning (ML) to real-world problems in a way that prevents, and
-ideally reverses, the widening social disparities that exist today and
-it’s this personal mission that drew me to Arena. Our mission is to
-transform the workforce so that people and organizations thrive. One of
-our core theses is that we can do this by removing bias from the hiring
-process through machine learning and predictive analytics. This
-expressed dedication to correcting for the cognitive human biases that
+ideally reverses, the widening social disparities that exist today. It’s this
+personal mission that drew me to Arena.
+
+Our mission is to transform the workforce so that people and
+organizations thrive, and one of our core theses is that we can do this by
+removing bias from the hiring process through machine learning and
+predictive analytics. This expressed dedication to correcting for the
+cognitive human biases that
 `lead us to hire people like ourselves <http://journals.sagepub.com/doi/abs/10.1177/0003122412463213>`_
 is one of the things that makes working at Arena exciting for me. Maybe
 it’s my public health background, or maybe it’s the thing that made me
@@ -86,7 +88,7 @@ dataset produces potentially discriminatory predictions, and (3)
 leverage fairness-aware ML techniques to reduce the degree to which
 models learn the discriminatory biases in data. So how do bias,
 discrimination, and fairness relate to each other? There are many ways
-to look at this question, but here’s how I unpack this it in the paper:
+to look at this question, but here’s how I unpack it in the paper:
 
     Colloquially, bias is simply a preference for or against something,
     e.g. preferring vanilla over chocolate ice cream. While this
@@ -114,7 +116,7 @@ solutions like these can’t solve everything. If we care about the
 responsible use of ML, we still need product and research teams to
 explicitly establish goals, values and ethics around measuring and
 reducing social bias in our machine learning systems. We need to
-critically examine our assumptions and hypotheses about how he define,
+critically examine our assumptions and hypotheses about how we define,
 quantify, and evaluate social bias and fairness in a particular context.
 It’s true that ethical questions can’t always be translated into neat
 mathematical formalizations, but there are domains, like
