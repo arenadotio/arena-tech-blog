@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Responsible Data Science</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="top" title="" href="../" />
+  
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6565534/7254552/css/fonts.css" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto+Mono:500|Roboto:500" rel="stylesheet">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-19219899-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../blog/atom.xml" title="Arena Tech Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="responsible-data-science">
+<h1>Responsible Data Science<a class="headerlink" href="#responsible-data-science" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="why-we-need-ethics-in-industry">
+<h2>Why We Need Ethics in Industry<a class="headerlink" href="#why-we-need-ethics-in-industry" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="https://www.linkedin.com/in/nbantilan"><img alt="../_images/niels.jpeg" class="align-right" src="../_images/niels.jpeg" /></a>
+<div class="section" id="by-niels-bantilan">
+<h3>By: Niels Bantilan<a class="headerlink" href="#by-niels-bantilan" title="Permalink to this headline">¶</a></h3>
+<p>As someone who came into the tech industry from the
+<a class="reference external" href="https://www.mailman.columbia.edu/public-health-now/news/breaking-it-down-public-health">public health field</a>,
+I feel like I naturally seek purpose and social impact in my work. What
+does this mean to me as a data scientist? It means that I want to apply
+machine learning (ML) to real-world problems in a way that prevents, and
+ideally reverses, the widening social disparities that exist today and
+it’s this personal mission that drew me to Arena. Our mission is to
+transform the workforce so that people and organizations thrive. One of
+our core theses is that we can do this by removing bias from the hiring
+process through machine learning and predictive analytics. This
+expressed dedication to correcting for the cognitive human biases that
+<a class="reference external" href="http://journals.sagepub.com/doi/abs/10.1177/0003122412463213">lead us to hire people like ourselves</a>
+is one of the things that makes working at Arena exciting for me. Maybe
+it’s my public health background, or maybe it’s the thing that made me
+want to take ethics and philosophy classes during my formative years in
+college, but my long view on machine learning, and artificial
+intelligence more broadly, is this: if we want to responsibly deploy
+intelligent systems to help us make socially sensitive decisions like
+medical diagnosis, parole-granting, and hiring, we should consider
+ethics to be a critical competency of the contemporary data scientist.
+This is because, at its core, ethics is the exercise of asking the right
+questions about what we ought to do, and, in the context of industry,
+should be a cognitive tool that helps us clarify our organizational
+values and priorities.</p>
+<div class="section" id="machine-learning-as-a-black-mirror">
+<h4>Machine Learning as a Black Mirror<a class="headerlink" href="#machine-learning-as-a-black-mirror" title="Permalink to this headline">¶</a></h4>
+<p>We often frame ML models as black boxes because we show them some input,
+we get some output in return, and whatever happens in between is often
+inscrutable or incomprehensible, at least to people outside the
+statistical and ML disciplines (but oftentimes also within them). While
+this metaphor is appropriate in many cases, thinking of machine learning
+as a black mirror better captures the potentially insidious side of
+applied ML because, sort of like the popular Netflix TV show, it
+highlights the reality that these models can reflect and amplify the
+patterns in whatever data we show them, potentially leading to
+unintended and <a class="reference external" href="https://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist">undesirable consequences</a>.
+As many writers and thought leaders have pointed out
+<a class="reference external" href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">again</a>,
+<a class="reference external" href="https://www.theguardian.com/books/2017/jul/05/weapons-math-destruction-big-data-cathy-o-neil">again</a>,
+and <a class="reference external" href="https://newrepublic.com/article/144644/turns-algorithms-racist">again</a>,
+if we train ML models on socially biased data, they’re able to learn and
+approximate those biases in one form or another.</p>
+</div>
+<div class="section" id="fairness-accountability-and-transparency-in-machine-learning">
+<h4>Fairness, Accountability, and Transparency in Machine Learning<a class="headerlink" href="#fairness-accountability-and-transparency-in-machine-learning" title="Permalink to this headline">¶</a></h4>
+<p>Luckily, there’s a growing body of work relating to fairness,
+accountability, and transparency in ML. At conferences like the
+<a class="reference external" href="https://www.fatml.org/">FATML</a> and <a class="reference external" href="https://fatconference.org/">FAT*</a>,
+ML practitioners, researchers, and policymakers are writing
+and sharing knowledge about how to design fair and interpretable machine
+learning algorithms when applied to socially sensitive decisions. I was
+fortunate enough to speak at one such event this year, called the
+<a class="reference external" href="https://www.bloomberg.com/company/d4gx/">Bloomberg Data Exchange for Good</a>,
+where I shared my work and preliminary evaluation of a fairness-aware
+machine learning interface that I implemented in Python, called
+<a class="reference external" href="https://github.com/cosmicBboy/themis-ml">themis-ml</a>.
+If you want to dive into the details you can check out the paper
+<a class="reference external" href="https://arxiv.org/pdf/1710.06921.pdf">here</a>, but the gist of it is that we
+need better tools for measuring and reducing social bias in machine
+learning algorithms. Themis-ml is intended for developers, researchers,
+and product teams, and provides an application programming interface to
+help them (1) measure the degree to which a specific dataset is socially
+biased, (2) measure the degree to which an ML model trained on this
+dataset produces potentially discriminatory predictions, and (3)
+leverage fairness-aware ML techniques to reduce the degree to which
+models learn the discriminatory biases in data. So how do bias,
+discrimination, and fairness relate to each other? There are many ways
+to look at this question, but here’s how I unpack this it in the paper:</p>
+<blockquote>
+<div><p>Colloquially, bias is simply a preference for or against something,
+e.g. preferring vanilla over chocolate ice cream. While this
+definition is intuitive, here we explicitly define algorithmic bias
+as a form of bias that occurs when mathematical rules favor one set
+of attributes over others in relation to some target variable, like
+“approving” or “denying” a loan.</p>
+<p>Algorithmic bias in machine learning models can occur when a trained
+model systematically generates predictions that favor one group over
+another in relation to some set of attributes, e.g. education, and
+some target variable, e.g. “default on credit”. While the above
+definition of bias is amoral, discrimination is in essence moral,
+occurring when an action is based on biases resulting in the unfair
+treatment of people. We define fairness as the inverse of
+discrimination, meaning that a “fairness-aware” model is one that
+produces non-discriminatory predictions.</p>
+</div></blockquote>
+</div>
+<div class="section" id="data-science-in-industry-as-applied-ethics">
+<h4>Data Science in Industry as Applied Ethics<a class="headerlink" href="#data-science-in-industry-as-applied-ethics" title="Permalink to this headline">¶</a></h4>
+<p>Themis-ml and (hopefully) others like it in the future are only the
+means to an end, and it’s important to remind ourselves that technology
+solutions like these can’t solve everything. If we care about the
+responsible use of ML, we still need product and research teams to
+explicitly establish goals, values and ethics around measuring and
+reducing social bias in our machine learning systems. We need to
+critically examine our assumptions and hypotheses about how he define,
+quantify, and evaluate social bias and fairness in a particular context.
+It’s true that ethical questions can’t always be translated into neat
+mathematical formalizations, but there are domains, like
+<a class="reference external" href="https://en.wikipedia.org/wiki/Equal_Employment_Opportunity_Commission">fair labor legislation</a>,
+in which we can thoughtfully apply tools like themis-ml to make progress
+towards our goal. Finally, I’d like to add a contender to the battle of
+the <a class="reference external" href="https://www.kdnuggets.com/2016/10/battle-data-science-venn-diagrams.html">data science venn diagrams</a>,
+noting that “responsible data science” lies at the center.</p>
+<img alt="../_images/data_science_venn_diagram.png" class="align-center" src="../_images/data_science_venn_diagram.png" />
+<p>We sorely need to include the red circle labelled “Ethics” in the
+mainstream narrative of what skills a data scientist needs. And with
+that, I will leave you with a few questions to ask yourself when
+building socially sensitive machine learning applications:</p>
+<ul class="simple">
+<li>What historical data am I using in my training data?</li>
+<li>Are these data correlated with socially sensitive attributes?</li>
+<li>Are any socially sensitive attributes correlated with the target label
+that I’m trying to predict?</li>
+<li>Who labelled my training data, or by what process did I obtain my
+labels?</li>
+<li>What kinds of features should I include during the training process?</li>
+<li>How might I measure social bias in my system and what variables do I
+need to monitor it?</li>
+<li>What do my predictions mean, and how can they be misinterpreted or
+misused by the end user?</li>
+<li>What negative/positive feedback loops is my ML system introducing into
+the real world?</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../Painless_PFA/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Painless Model Deployment Using PFA
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+</div>
+
+  
+  
+  </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../">
+    <img class="logo" src="../_static/arena_logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+  
+  
+  <h2>
+  
+  <i class="fa fa-calendar"></i>
+    Nov 13, 2017
+  
+  </h2>
+
+  <ul>
+    
+
+  
+  <li><i class="fa-fw fa fa-user"></i>
+    
+      
+      <a href="../blog/author/niels-bantilan/">Niels Bantilan</a>
+      
+    </li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-tags"></i>
+      
+    
+      
+      <a href="../blog/tag/data-science/">data science</a>,
+      
+    
+      
+      <a href="../blog/tag/bias/">bias</a>
+      
+    </li>
+  
+  
+  </ul>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://arena.io/">http://arena.io/</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/arenadotio">https://github.com/arenadotio</a></li>
+</ul>
+
+
+  <h3><a href="../blog/">Recent Posts</a></h3>
+  <ul>
+    
+    
+      <li><a href="../Painless_PFA/">Aug 24 - Painless Model Deployment Using PFA</a></li>
+    
+      <li><a href="../Arenas_Cultural_Values/">Jul 24 - Arena's Cultural Values at Work</a></li>
+    
+      <li><a href="../Cuban_Conference_Crisis/">Dec 12 - Cuban Conference Crisis</a></li>
+    
+      <li><a href="../Risky_Libraries/">Dec 04 - Go risky on libraries, conservative on infrastructure</a></li>
+    
+  </ul>
+
+  <h3><a href="../blog/tag/">Tags</a></h3>
+  <style type="text/css">
+    ul.ablog-cloud {list-style: none; overflow: auto;}
+    ul.ablog-cloud li {float: left; height: 20pt; line-height: 18pt; margin-right: 5px;}
+    ul.ablog-cloud a {text-decoration: none; vertical-align: middle;}
+    li.ablog-cloud-1{font-size: 80%;}
+    li.ablog-cloud-2{font-size: 95%;}
+    li.ablog-cloud-3{font-size: 110%;}
+    li.ablog-cloud-4{font-size: 125%;}
+    li.ablog-cloud-5{font-size: 140%;}
+  </style>
+  <ul class="ablog-cloud">
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/ocaml/">OCaml</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/arena/">arena</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/bias/">bias</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/cuba/">cuba</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-5">
+        <a href="../blog/tag/data-science/">data science</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/functional-programming/">functional programming</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/pfa/">pfa</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/values/">values</a></li>
+      
+    
+  </ul>
+
+  <h3><a href="../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../blog/2017/">2017 (3)</a></li>
+    
+  
+    
+    <li><a href="../blog/2016/">2016 (2)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer" role="contentinfo">
+  &copy;2017. All rights reserved. | <a href="http://arena.io/"> Arena </a>
+</div>
+
+  </body>
+</html>
