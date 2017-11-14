@@ -67,13 +67,12 @@ Fairness, Accountability, and Transparency in Machine Learning
 ==============================================================
 
 Luckily, there’s a growing body of work relating to fairness,
-accountability, and transparency in ML. At conferences like the
+accountability, and transparency in ML. At conferences like
 `FATML <https://www.fatml.org/>`_ and `FAT* <https://fatconference.org/>`_,
-ML practitioners, researchers, and policymakers are writing
-and sharing knowledge about how to design fair and interpretable machine
-learning algorithms when applied to socially sensitive decisions. I was
-fortunate enough to speak at one such event this year, called the
-`Bloomberg Data Exchange for Good <https://www.bloomberg.com/company/d4gx/>`_,
+ML practitioners, researchers, and policymakers are sharing knowledge about
+how to design fair and interpretable machine learning algorithms when applied
+to socially sensitive decisions. I was fortunate enough to speak at one such
+event this year, called the `Bloomberg Data Exchange for Good <https://www.bloomberg.com/company/d4gx/>`_,
 where I shared my work and preliminary evaluation of a fairness-aware
 machine learning interface that I implemented in Python, called
 `themis-ml <https://github.com/cosmicBboy/themis-ml>`_.
