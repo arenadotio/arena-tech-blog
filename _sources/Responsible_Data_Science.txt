@@ -100,9 +100,9 @@ to look at this question, but here’s how I unpack it in the paper:
     model systematically generates predictions that favor one group over
     another in relation to some set of attributes, e.g. education, and
     some target variable, e.g. “default on credit”. While the above
-    definition of bias is amoral, discrimination is in essence moral,
-    occurring when an action is based on biases resulting in the unfair
-    treatment of people. We define fairness as the inverse of
+    definition of bias is amoral, discrimination is in essence [a moral
+    decision], occurring when an action is based on biases resulting in
+    the unfair treatment of people. We define fairness as the inverse of
     discrimination, meaning that a “fairness-aware” model is one that
     produces non-discriminatory predictions.
 

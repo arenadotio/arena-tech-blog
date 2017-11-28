@@ -5,7 +5,7 @@
   <updated>2017-11-13T00:00:00Z</updated>
   <link href="http://techblog.arena.io/" />
   <link href="http://techblog.arena.io/blog/atom.xml" rel="self" />
-  <generator uri="http://ablog.readthedocs.org" version="0.7.10">ABlog</generator>
+  <generator uri="http://ablog.readthedocs.org" version="0.8.4">ABlog</generator>
   <entry xml:base="http://techblog.arena.io/blog/atom.xml">
     <title type="text">Responsible Data Science</title>
     <id>http://techblog.arena.io/Responsible_Data_Science/</id>
