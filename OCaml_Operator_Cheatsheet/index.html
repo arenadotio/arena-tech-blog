@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>OCaml Operators Cheatsheet</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="top" title="" href="../" />
+  
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6565534/7254552/css/fonts.css" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto+Mono:500|Roboto:500" rel="stylesheet">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-19219899-4', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../blog/atom.xml" title="Arena Tech Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ocaml-operators-cheatsheet">
+<h1>OCaml Operators Cheatsheet<a class="headerlink" href="#ocaml-operators-cheatsheet" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://www.linkedin.com/in/brendankblong/"><img alt="https://www.gravatar.com/avatar/b7bbc26a53917230eb17d1f8cd4b3dda?size=60" class="align-right" src="https://www.gravatar.com/avatar/b7bbc26a53917230eb17d1f8cd4b3dda?size=60" /></a>
+<div class="section" id="by-brendan-long">
+<h2>By Brendan Long<a class="headerlink" href="#by-brendan-long" title="Permalink to this headline">¶</a></h2>
+<p>One of the hardest parts of learning OCaml is figuring out what the infix operators do, since they&#8217;re just a string of symbols and you can&#8217;t find them with a Google search. This is my attempt to make a cheatsheet for whenever you&#8217;re wondering what a random series of symbols means. Doing a search on this page should find basic info about any of the common OCaml operators.</p>
+<p>Note that some libraries define their own operators, like how Jane Street&#8217;s <a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/core/Core/Command/Spec/index.html#val-(++)">Command.Spec</a> defines <code class="docutils literal"><span class="pre">++</span></code>, <code class="docutils literal"><span class="pre">+&gt;</span></code>, and <code class="docutils literal"><span class="pre">+&lt;</span></code>. In cases like that, hopefully the library you&#8217;re using will make it clear what the infix operators do.</p>
+<div class="section" id="general-info-about-infix-functions">
+<h3>General info about infix functions<a class="headerlink" href="#general-info-about-infix-functions" title="Permalink to this headline">¶</a></h3>
+<p>In OCaml, a function is infix if its name starts with one of these characters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>= @ ^ ∣ &amp; + - * / $ %
+</pre></div>
+</div>
+<p>Followed by zero or more of these characters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>! $ % &amp; * + - . / : ? @ ^ ∣ ~
+</pre></div>
+</div>
+<p>When defining an infix function, you need to put <code class="docutils literal"><span class="pre">()</span></code> around the &#8220;name&#8221;.</p>
+<p>For example, in <a class="reference external" href="https://github.com/diml/utop">utop</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span># let (=&lt;&gt;@^|&amp;~+-*/$%!?:.) a b =
+a + b ;;
+val ( =&lt;&gt;@^|&amp;~+-*/$%!?:. ) : int -&gt; int -&gt; int = &lt;fun&gt;
+
+# 1 =&lt;&gt;@^|&amp;~+-*/$%!?:. 2 ;;
+- : int = 3
+</pre></div>
+</div>
+<p>Also, you can see the type of an infix operator in utop by again wrapping the function name in parentheses:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span># (=&lt;&gt;@^|&amp;~+-*/$%!?:.);;
+val ( =&lt;&gt;@^|&amp;~+-*/$%!?:. ) : int -&gt; int -&gt; int = &lt;fun&gt;
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://caml.inria.fr/pub/docs/manual-caml-light/node4.9.html">official documentation for this is here</a>, although <a class="reference external" href="https://haifengl.wordpress.com/2014/07/02/ocaml-functions/">this blog</a> has a more accessible explanation.</p>
+</div>
+<div class="section" id="built-in-infix-operators">
+<h3>Built-in infix operators<a class="headerlink" href="#built-in-infix-operators" title="Permalink to this headline">¶</a></h3>
+<p>The built-in operators are defined in <a class="reference external" href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html">Pervasives</a>:</p>
+<p>Refer to the documentation for the magic involved in functions that work on multiple types (<code class="docutils literal"><span class="pre">=</span></code>, <code class="docutils literal"><span class="pre">&lt;&gt;</span></code>, <code class="docutils literal"><span class="pre">&lt;</span></code>, <code class="docutils literal"><span class="pre">&gt;</span></code>, etc).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">=</span></code></td>
+<td>Structural equality[<a class="reference external" href="https://stackoverflow.com/a/13596236/212555">1</a>]</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&lt;&gt;</span></code></td>
+<td>Structural inequality[<a class="reference external" href="https://stackoverflow.com/a/13596236/212555">1</a>]</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&lt;</span></code></td>
+<td>Less than</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&gt;</span></code></td>
+<td>Greater than</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&lt;=</span></code></td>
+<td>Less than or equal</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&gt;=</span></code></td>
+<td>Greater than or equal</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">==</span></code></td>
+<td>Physical equality (same object)[<a class="reference external" href="https://stackoverflow.com/a/13596236/212555">1</a>]</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">!=</span></code></td>
+<td>Physical inequality (not same object)[<a class="reference external" href="https://stackoverflow.com/a/13596236/212555">1</a>]</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&amp;&amp;</span></code></td>
+<td>Boolean and</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&amp;</span></code></td>
+<td>(Deprecated) Boolean and</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">||</span></code></td>
+<td>Boolean or</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">|</span></code></td>
+<td>(Deprecated) Boolean or</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">|&gt;</span></code></td>
+<td>Reverse function application (<code class="docutils literal"><span class="pre">x</span> <span class="pre">|&gt;</span> <span class="pre">f</span></code> is the same as <code class="docutils literal"><span class="pre">f</span> <span class="pre">x</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&#64;&#64;</span></code></td>
+<td>Function application (<code class="docutils literal"><span class="pre">f</span> <span class="pre">&#64;&#64;</span> <span class="pre">x</span></code> is the same as <code class="docutils literal"><span class="pre">f</span> <span class="pre">x</span></code>)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">~-</span></code></td>
+<td>Integer negation (same as unary <code class="docutils literal"><span class="pre">-</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">~+</span></code></td>
+<td>Described as &#8220;unary addition&#8221; but doesn&#8217;t seem to do anything.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">+</span></code></td>
+<td>Integer addition</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">-</span></code></td>
+<td>Integer subtraction</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">*</span></code></td>
+<td>Integer multiplication</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">/</span></code></td>
+<td>Integer division</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">~-.</span></code></td>
+<td>Float negation (same as unary <code class="docutils literal"><span class="pre">-.</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">~+.</span></code></td>
+<td>Described as &#8220;unary addition&#8221; but doesn&#8217;t seem to do anything.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">+.</span></code></td>
+<td>Float addition</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">-.</span></code></td>
+<td>Float subtraction</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">*.</span></code></td>
+<td>Float multiplication</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">/.</span></code></td>
+<td>Float division</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">**</span></code></td>
+<td>Float exponentiation</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">^</span></code></td>
+<td>String concatenation</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&#64;</span></code></td>
+<td>List concatenation</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">!</span></code></td>
+<td>Get the value of a <code class="docutils literal"><span class="pre">ref</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">:=</span></code></td>
+<td>Set the value of a <code class="docutils literal"><span class="pre">ref</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">^^</span></code></td>
+<td>Format string concatenation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="jane-street">
+<h3>Jane Street<a class="headerlink" href="#jane-street" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="numbers">
+<h4>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h4>
+<p>Jane Street generally defines arithmetic operators in modules where they make sense, so you can do things like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Bigint</span><span class="o">.</span><span class="p">(</span><span class="n">of_int</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">of_int</span> <span class="mi">3</span> <span class="o">/</span> <span class="n">of_int</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The documentation for this interface is under <a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/base/Base/Int_intf/module-type-S_common/index.html">Int_intf.S_common</a>, although most of them are defined for floating point numbers too.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">+</span></code></td>
+<td>Module-specific addition (i.e. <code class="docutils literal"><span class="pre">Float.(+)</span></code> is float addition)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">-</span></code></td>
+<td>Module-specific subtraction</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">*</span></code></td>
+<td>Module-specific multiplication</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">/</span></code></td>
+<td>Module-specific division</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">//</span></code></td>
+<td>Integer division return float</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">%</span></code></td>
+<td>Infix <a class="reference external" href="https://en.wikipedia.org/wiki/Modulo_operation">mod</a> (result is always positive)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">/%</span></code></td>
+<td>Infix <a class="reference external" href="https://en.wikipedia.org/wiki/Modulo_operation">mod</a> (result is negative if the input is negative)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="monads">
+<h4>Monads<a class="headerlink" href="#monads" title="Permalink to this headline">¶</a></h4>
+<p>Jane Street&#8217;s libraries (Core, Async, Base, etc.) consistently define infix operators under <a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/base/Base/List/Monad_infix/index.html">Monad_infix modules</a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&gt;&gt;=</span></code></td>
+<td>Infix version of <a class="reference external" href="https://en.wikipedia.org/wiki/Monad_(functional_programming)#Overview">bind</a>. Opening <code class="docutils literal"><span class="pre">Async</span></code> sets
+this to <a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/async_kernel/Async_kernel/Deferred/index.html#val-bind">Deferred.bind</a></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&gt;&gt;|</span></code></td>
+<td>Infix version of <code class="docutils literal"><span class="pre">map</span></code>. Opening <code class="docutils literal"><span class="pre">Async</span></code> sets this to
+<a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/async_kernel/Async_kernel/Deferred/index.html#val-map">Deferred.map</a></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&gt;&gt;=?</span></code></td>
+<td><code class="docutils literal"><span class="pre">bind</span></code> mixed with <code class="docutils literal"><span class="pre">Or_error</span></code>. Opening <code class="docutils literal"><span class="pre">Async</span></code> sets this to
+<a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/async_kernel/Async_kernel__/Deferred_or_error/index.html#val-bind">Deferred.Or_error.bind</a></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&gt;&gt;=|</span></code></td>
+<td><code class="docutils literal"><span class="pre">map</span></code> mixed with <code class="docutils literal"><span class="pre">Or_error</span></code>. Opening <code class="docutils literal"><span class="pre">Async</span></code> sets this to
+<a class="reference external" href="https://ocaml.janestreet.com/ocaml-core/latest/doc/async_kernel/Async_kernel__/Deferred_or_error/index.html#val-map">Deferred.Or_error.map</a></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">map</span></code> and <code class="docutils literal"><span class="pre">bind</span></code> are documented assuming that you&#8217;re familiar with <a class="reference external" href="https://en.wikipedia.org/wiki/Monad_(functional_programming)">monads</a>, and you may find <a class="reference external" href="https://stackoverflow.com/questions/29851449/what-is-the-use-of-monads-in-ocaml/29852213#29852213">this StackOverflow answer</a> useful if you need more information.</p>
+<p><code class="docutils literal"><span class="pre">&gt;&gt;=</span></code> and <code class="docutils literal"><span class="pre">&gt;&gt;|</span></code> show up most commonly in Async, but they can also be used with <code class="docutils literal"><span class="pre">Option</span></code>, <code class="docutils literal"><span class="pre">List</span></code>, <code class="docutils literal"><span class="pre">Result</span></code>, etc.</p>
+</div>
+</div>
+<div class="section" id="lwt">
+<h3>Lwt<a class="headerlink" href="#lwt" title="Permalink to this headline">¶</a></h3>
+<p>See the <a class="reference external" href="http://ocsigen.org/lwt/3.1.0/api/Lwt">Lwt documentation</a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&gt;&gt;=</span></code></td>
+<td>Infix version of <a class="reference external" href="https://en.wikipedia.org/wiki/Monad_(functional_programming)#Overview">bind</a></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">=&lt;&lt;</span></code></td>
+<td><code class="docutils literal"><span class="pre">bind</span></code> with the arguments reversed</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&gt;|=</span></code></td>
+<td>Infix version of <code class="docutils literal"><span class="pre">map</span></code>. Same as <code class="docutils literal"><span class="pre">&gt;&gt;|</span></code> in Jane Street code</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">=|&lt;</span></code></td>
+<td><code class="docutils literal"><span class="pre">map</span></code> with the arguments reversed</td>
+</tr>
+</tbody>
+</table>
+<p>Lwt doesn&#8217;t have Async&#8217;s <code class="docutils literal"><span class="pre">&gt;&gt;=?</span></code> or <code class="docutils literal"><span class="pre">&gt;&gt;|?</span></code> because <code class="docutils literal"><span class="pre">Lwt.t</span></code> can contain errors without having a separate <code class="docutils literal"><span class="pre">Or_error</span></code> module.</p>
+</div>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  
+  <a href="../Responsible_Data_Science/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Responsible Data Science
+  </a>
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+</div>
+
+  
+  
+  </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../">
+    <img class="logo" src="../_static/arena_logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+  
+  
+  <h2>
+  
+  <i class="fa fa-calendar"></i>
+    Jan 16, 2018
+  
+  </h2>
+
+  <ul>
+    
+
+  
+  <li><i class="fa-fw fa fa-user"></i>
+    
+      
+      <a href="../blog/author/brendan-long/">Brendan Long</a>
+      
+    </li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-tag"></i>
+    
+      
+      <a href="../blog/tag/ocaml/">OCaml</a>
+      
+    </li>
+  
+  
+  </ul>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://arena.io/">http://arena.io/</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/arenadotio">https://github.com/arenadotio</a></li>
+</ul>
+
+
+  <h3><a href="../blog/">Recent Posts</a></h3>
+  <ul>
+    
+    
+      <li><a href="../Responsible_Data_Science/">Nov 13 - Responsible Data Science</a></li>
+    
+      <li><a href="../Painless_PFA/">Aug 24 - Painless Model Deployment Using PFA</a></li>
+    
+      <li><a href="../Arenas_Cultural_Values/">Jul 24 - Arena's Cultural Values at Work</a></li>
+    
+      <li><a href="../Cuban_Conference_Crisis/">Dec 12 - Cuban Conference Crisis</a></li>
+    
+      <li><a href="../Risky_Libraries/">Dec 04 - Go risky on libraries, conservative on infrastructure</a></li>
+    
+  </ul>
+
+  <h3><a href="../blog/tag/">Tags</a></h3>
+  <style type="text/css">
+    ul.ablog-cloud {list-style: none; overflow: auto;}
+    ul.ablog-cloud li {float: left; height: 20pt; line-height: 18pt; margin-right: 5px;}
+    ul.ablog-cloud a {text-decoration: none; vertical-align: middle;}
+    li.ablog-cloud-1{font-size: 80%;}
+    li.ablog-cloud-2{font-size: 95%;}
+    li.ablog-cloud-3{font-size: 110%;}
+    li.ablog-cloud-4{font-size: 125%;}
+    li.ablog-cloud-5{font-size: 140%;}
+  </style>
+  <ul class="ablog-cloud">
+    
+      
+      <li class="ablog-cloud ablog-cloud-5">
+        <a href="../blog/tag/ocaml/">OCaml</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/arena/">arena</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/bias/">bias</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/cuba/">cuba</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-5">
+        <a href="../blog/tag/data-science/">data science</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/functional-programming/">functional programming</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/pfa/">pfa</a></li>
+      
+    
+      
+      <li class="ablog-cloud ablog-cloud-1">
+        <a href="../blog/tag/values/">values</a></li>
+      
+    
+  </ul>
+
+  <h3><a href="../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../blog/2018/">2018 (1)</a></li>
+    
+  
+    
+    <li><a href="../blog/2017/">2017 (3)</a></li>
+    
+  
+    
+    <li><a href="../blog/2016/">2016 (2)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer" role="contentinfo">
+  &copy;2017. All rights reserved. | <a href="http://arena.io/"> Arena </a>
+</div>
+
+  </body>
+</html>
